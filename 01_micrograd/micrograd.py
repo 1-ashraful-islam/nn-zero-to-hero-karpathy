@@ -75,10 +75,11 @@ print('slope', (d2 - d1)/h)
 
 # %%
 class Value:
-    def __init__(self, data, _children=(), _op=''):
+    def __init__(self, data, _children=(), _op='', label=''):
         self.data = data
         self._prev = set(_children)
         self._op = _op
+        self.label = label
 
     def __repr__(self):
         return f"Value(data={self.data})"
@@ -90,15 +91,21 @@ class Value:
     def __mul__(self, other):
         out = Value(self.data * other.data, (self, other), '*')
         return out
-    
-a = Value(2.0)
-b = Value(-3.0)
-c = Value(10.0)
-d = a*b + c # Equivalent to a.__mul__(b).__add(c)
+
+
+# a*b +c is Equivalent to a.__mul__(b).__add(c)
+a = Value(2.0, label='a')
+b = Value(-3.0, label='b')
+c = Value(10.0, label='c')
+e = a*b; e.label = 'e'
+d = e + c; d.label = 'd'
+f = Value(-2.0, label='f')
+L = d*f; L.label = 'L'
+L
 # d
 # d._prev
 # d._op
-d
+# d
 
 # %%
 #visualization of the nodes
@@ -123,7 +130,7 @@ def draw_dot(root):
     for n in nodes:
         uid = str(id(n))
         # for any value in the graph create a rectangular ('record') node for it
-        dot.node(name = uid, label = "{ data %0.4f}" % (n.data, ), shape = 'record')
+        dot.node(name = uid, label = "{ %s | data %0.4f}" % (n.label, n.data), shape = 'record')
         if n._op:
             # if the value is result of an op create a op node for it
             dot.node(name = uid + n._op, label = n._op)
@@ -139,4 +146,6 @@ def draw_dot(root):
 
 
 # %%
-draw_dot(d)
+draw_dot(L)
+
+# %%
