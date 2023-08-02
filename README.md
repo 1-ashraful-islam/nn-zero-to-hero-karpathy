@@ -9,3 +9,6 @@ Although I am working on Jupyter Notebook, I am using jupytext for easier versio
 3. Start notebook server `jupyter notebook`
 
 `jupytext` should now convert all the python files to notebook files and sync any changes you make in either .ipynb or .py files.
+
+# Additional Dependencies
+Some of the lectures use [graphviz](https://graphviz.org) to visualize the neural network. At the time of this writing, only way I could visualize the graph is to install graphviz through system package manager.

@@ -3,3 +3,4 @@ jupytext
 pandas
 matplotlib
 numpy
+graphviz
